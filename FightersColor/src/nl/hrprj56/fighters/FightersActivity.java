@@ -7,6 +7,7 @@ public class FightersActivity extends Activity {
 	
 	/**Super Tester!!**/
 /**Super Tester 2!!**/
+/**Super Tester 3!!**/
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
