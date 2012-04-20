@@ -1,0 +1,23 @@
+!SESSION 2012-04-20 13:11:15.400 -----------------------------------------------
+eclipse.buildId=M20120208-0800
+java.version=1.7.0_03
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=nl_NL
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.package.java.product
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-04-20 13:12:29.940
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/FightersColor/res' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:320)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:194)
+	at org.eclipse.core.internal.resources.Container.members(Container.java:266)
+	at org.eclipse.core.internal.resources.Container.members(Container.java:249)
+	at com.android.ide.eclipse.adt.internal.sdk.Sdk$6.run(Sdk.java:1302)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2012-04-20 13:12:29.940
+!MESSAGE Resource '/FightersColor/res' does not exist.
+
+!ENTRY org.eclipse.jdt.launching 4 4 2012-04-20 13:12:30.370
+!MESSAGE Failed to retrieve default libraries for C:\Program Files (x86)\Java\jre7
