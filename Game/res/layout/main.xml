@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@drawable/menu">
+
+    <Button
+     android:id="@+id/host"
+     android:layout_marginTop="135dp" 
+     android:layout_width="300sp"
+     android:layout_height="80sp"
+     android:layout_gravity="center"
+     android:background="@drawable/hostknop" />
+     
+    <Button
+     android:id="@+id/join"
+     android:layout_marginTop="15dp" 
+     android:layout_width="300sp"
+     android:layout_height="80sp"
+     android:layout_gravity="center"
+     android:background="@drawable/joinknop" />
+     
+    <Button
+     android:id="@+id/highscores"
+     android:layout_marginTop="15dp" 
+     android:layout_width="300sp"
+     android:layout_height="80sp"
+     android:layout_gravity="center"
+     android:background="@drawable/highscoresknop" />
+    
+    <Button
+     android:id="@+id/help"
+     android:layout_marginTop="15dp" 
+     android:layout_width="300sp"
+     android:layout_height="80sp"
+     android:layout_gravity="center"
+     android:background="@drawable/helpknop" />
+    
+</LinearLayout>
