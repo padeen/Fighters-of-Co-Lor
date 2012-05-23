@@ -19,7 +19,7 @@ public class Menu extends Activity {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				startActivity(new Intent("com.hr.fighter.HOST"));
+				startActivity(new Intent("com.hr.fighter.serverActivity"));
 				
 			}
 			

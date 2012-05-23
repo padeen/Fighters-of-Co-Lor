@@ -11,7 +11,8 @@
      android:layout_width="300sp"
      android:layout_height="80sp"
      android:layout_gravity="center"
-     android:background="@drawable/hostknop" />
+     android:background="@drawable/hostknop"
+     android:onClick="host" />
      
     <Button
      android:id="@+id/join"
@@ -19,7 +20,8 @@
      android:layout_width="300sp"
      android:layout_height="80sp"
      android:layout_gravity="center"
-     android:background="@drawable/joinknop" />
+     android:background="@drawable/joinknop"
+     android:onClick="client"/>
      
     <Button
      android:id="@+id/highscores"

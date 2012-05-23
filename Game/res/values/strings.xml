@@ -3,5 +3,10 @@
 
     <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">Fighter</string>
+    <string name="noIP">Geen IP adres gevonden.</string>
+    <string name="hostIP">Geef dit IP adres aan de Co-Op speler.</string>
+    <string name="waitForPlayer">Wachten op inkomende verbinding...</string>
+    <string name="connect">Connect</string>
+    <string name="clientIP">Vul IP adres Host is en druk op connect.</string>
 
 </resources>
