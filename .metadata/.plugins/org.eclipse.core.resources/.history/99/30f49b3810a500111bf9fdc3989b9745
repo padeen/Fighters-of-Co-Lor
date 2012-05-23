@@ -155,7 +155,7 @@ public class serverActivity extends Activity {
 		}catch (IOException e) {
 			System.err.println("Sluiting van input output of socket faalt.");
 		}
-	} i
+	}
     
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

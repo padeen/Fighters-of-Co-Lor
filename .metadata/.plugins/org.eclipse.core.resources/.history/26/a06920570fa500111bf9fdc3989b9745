@@ -66,11 +66,7 @@ public class clientActivity extends Activity {
     
     public void submit(View v){
     	EditText input = (EditText) findViewById(R.id.chat);
-    	TextView local = (TextView) findViewById(R.id.test);
-    	String message = input.getText().toString();
-    	local.setText(message);
-    	out.println(message);
-    	input.setText(null);
+    	out.println(input.getText().toString());
     }
     
     
