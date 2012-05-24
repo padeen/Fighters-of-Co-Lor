@@ -27,6 +27,7 @@ public class clientActivity extends Activity {
 	private PrintWriter out;
 	private Socket socket;
 	private BufferedReader in;
+	private boolean wasConnected =false;
 	
 	
     @Override
@@ -50,6 +51,7 @@ public class clientActivity extends Activity {
     		out = new PrintWriter(socket.getOutputStream(), true);
     		in = new BufferedReader(new InputStreamReader(
     									socket.getInputStream()));
+    		wasConnected = true;
     	}catch(UnknownHostException e){
     		System.err.println("Kan geen verbinding maken met dit IP adres.");
     		System.exit(1);
@@ -76,11 +78,13 @@ public class clientActivity extends Activity {
     
 	public void finish() {
 		super.finish();
-		
 		try{
-    		out.close();
-			in.close();
-	    	socket.close();
+			if(wasConnected){
+				out.println("!BYE.@");	
+				out.close();
+				in.close();
+				socket.close();
+			}
 		}catch (IOException e) {
 			System.err.println("Sluiting van input output of socket faalt.");
 		}

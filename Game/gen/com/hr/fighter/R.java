@@ -34,6 +34,7 @@ public final class R {
     public static final class id {
         public static final int button1=0x7f050003;
         public static final int chat=0x7f050002;
+        public static final int editText1=0x7f050009;
         public static final int help=0x7f050007;
         public static final int highscores=0x7f050006;
         public static final int host=0x7f050004;
@@ -47,6 +48,7 @@ public final class R {
         public static final int connectie=0x7f030001;
         public static final int main=0x7f030002;
         public static final int server=0x7f030003;
+        public static final int test=0x7f030004;
     }
     public static final class string {
         public static final int app_name=0x7f040001;
