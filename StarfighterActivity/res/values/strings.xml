@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, StarfighterActivity!</string>
+    <string name="app_name">Fighters of Color</string>
+    <string name="noIP">Geen IP adres gevonden.</string>
+    <string name="hostIP">Geef dit IP adres aan de Co-Op speler.</string>
+    <string name="waitForPlayer">Wachten op inkomende verbinding...</string>
+    <string name="connect">Connect</string>
+    <string name="clientIP">Vul IP adres Host is en druk op connect.</string>
+</resources>
