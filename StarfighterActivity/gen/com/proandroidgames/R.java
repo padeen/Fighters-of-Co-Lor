@@ -13,9 +13,9 @@ public final class R {
     public static final class drawable {
         public static final int backgroundstars=0x7f020000;
         public static final int bak_starfighter=0x7f020001;
-        public static final int debris=0x7f020002;
-        public static final int exitselector=0x7f020003;
-        public static final int good_sprite=0x7f020004;
+        public static final int character_sprite=0x7f020002;
+        public static final int debris=0x7f020003;
+        public static final int exitselector=0x7f020004;
         public static final int help_knop=0x7f020005;
         public static final int help_knop_focused=0x7f020006;
         public static final int help_knop_ingedrukt=0x7f020007;

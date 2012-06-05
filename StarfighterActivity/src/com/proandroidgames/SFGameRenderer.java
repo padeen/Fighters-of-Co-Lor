@@ -1,8 +1,9 @@
 package com.proandroidgames;
 
+import java.util.Random;
+
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
-import com.proandroidgames.R;
 
 import android.opengl.GLSurfaceView.Renderer;
 
@@ -10,6 +11,10 @@ public class SFGameRenderer implements Renderer{
 	private SFBackground background = new SFBackground();
 	private SFBackground background2 = new SFBackground();
 	private SFGoodGuy player1 = new SFGoodGuy();
+	
+	private SFEnemy[] enemies = new SFEnemy[SFEngine.TOTAL_INTERCEPTORS + SFEngine.TOTAL_SCOUTS + SFEngine.TOTAL_WARSHIPS - 1];
+	private SFTextures textureLoader;
+	private int[] spriteSheets = new int[1];
 	
 	private int goodGuyBankFrames = 0;
 	private long loopStart = 0;
@@ -37,6 +42,7 @@ public class SFGameRenderer implements Renderer{
 		scrollBackground2(gl);
 		
 		movePlayer1(gl);
+		moveEnemy(gl);
 		
 		//All other game drawing will be called here
 		
@@ -45,6 +51,147 @@ public class SFGameRenderer implements Renderer{
 	    loopEnd = System.currentTimeMillis();
 	    loopRunTime = ((loopEnd - loopStart));
     
+	}
+	
+	private void initializeInterceptors(){
+		for (int x = 0; x<SFEngine.TOTAL_INTERCEPTORS -1 ; x++){
+			SFEnemy interceptor = new SFEnemy(SFEngine.TYPE_INTERCEPTOR, SFEngine.ATTACK_RANDOM);
+			enemies[x] = interceptor;
+		}
+	}
+	private void initializeScouts(){
+		for (int x = SFEngine.TOTAL_INTERCEPTORS -1; x<SFEngine.TOTAL_INTERCEPTORS + SFEngine.TOTAL_SCOUTS -1; x++){
+			SFEnemy interceptor;
+			if (x>=(SFEngine.TOTAL_INTERCEPTORS + SFEngine.TOTAL_SCOUTS) / 2 ){
+				interceptor = new SFEnemy(SFEngine.TYPE_SCOUT, SFEngine.ATTACK_RIGHT);
+			}else{
+				interceptor = new SFEnemy(SFEngine.TYPE_SCOUT, SFEngine.ATTACK_LEFT);
+			}
+			enemies[x] = interceptor;
+		}
+	}
+	private void initializeWarships(){
+		for (int x = SFEngine.TOTAL_INTERCEPTORS + SFEngine.TOTAL_SCOUTS -1; x<SFEngine.TOTAL_INTERCEPTORS + SFEngine.TOTAL_SCOUTS + SFEngine.TOTAL_WARSHIPS -1; x++){
+			SFEnemy interceptor = new SFEnemy(SFEngine.TYPE_WARSHIP, SFEngine.ATTACK_RANDOM);
+			enemies[x] = interceptor;
+		}
+	}
+	
+	private void moveEnemy(GL10 gl){
+		for (int x = 0; x < SFEngine.TOTAL_INTERCEPTORS + SFEngine.TOTAL_SCOUTS + SFEngine.TOTAL_WARSHIPS - 1; x++){
+			if (!enemies[x].isDestroyed){
+				Random randomPos = new Random();
+				switch (enemies[x].enemyType){
+				case SFEngine.TYPE_INTERCEPTOR:
+					if (enemies[x].posY < 0){
+						enemies[x].posY = (randomPos.nextFloat() * 10) + 10;
+						enemies[x].posX = randomPos.nextFloat() * 9;
+						enemies[x].isLockedOn = false;
+						enemies[x].lockOnPosX = 0;
+					}	
+					gl.glMatrixMode(GL10.GL_MODELVIEW);
+					gl.glLoadIdentity();
+					gl.glPushMatrix();
+					gl.glScalef(.10f, .10f, 1f);
+		
+					if (enemies[x].posY >= 9){
+						enemies[x].posY -= SFEngine.INTERCEPTOR_SPEED;
+					}else{
+						if (!enemies[x].isLockedOn){
+							enemies[x].lockOnPosX = SFEngine.playerBankPosX;
+							enemies[x].isLockedOn = true;
+							enemies[x].incrementXToTarget =  (float) ((enemies[x].lockOnPosX - enemies[x].posX )/ (enemies[x].posY / (SFEngine.INTERCEPTOR_SPEED  * 10)));
+						}
+						enemies[x].posY -= (SFEngine.INTERCEPTOR_SPEED  * 10);
+						enemies[x].posX += enemies[x].incrementXToTarget; 
+	
+					}
+						gl.glTranslatef(enemies[x].posX, enemies[x].posY, 0f);
+						gl.glMatrixMode(GL10.GL_TEXTURE);
+						gl.glLoadIdentity();
+						gl.glTranslatef(0.25f, .25f , 0.0f);					
+					enemies[x].draw(gl, spriteSheets);
+					gl.glPopMatrix();
+					gl.glLoadIdentity();
+			
+					break;
+				case SFEngine.TYPE_SCOUT:
+					if (enemies[x].posY <= 0){
+						enemies[x].posY = (randomPos.nextFloat() * 10) + 10;
+						enemies[x].isLockedOn = false;
+						enemies[x].posT = SFEngine.SCOUT_SPEED;
+						enemies[x].lockOnPosX = enemies[x].getNextScoutX();
+						enemies[x].lockOnPosY = enemies[x].getNextScoutY();
+						if(enemies[x].attackDirection == SFEngine.ATTACK_LEFT){
+							enemies[x].posX = 0;
+						}else{
+							enemies[x].posX = 9f;
+						}
+					}	
+					gl.glMatrixMode(GL10.GL_MODELVIEW);
+					gl.glLoadIdentity();
+					gl.glPushMatrix();
+					gl.glScalef(.10f, .10f, 1f);
+		
+					if (enemies[x].posY >= 8.0f){
+						enemies[x].posY -= SFEngine.SCOUT_SPEED;
+			
+					}else{
+						enemies[x].posX = enemies[x].getNextScoutX();
+						enemies[x].posY = enemies[x].getNextScoutY();
+						enemies[x].posT += SFEngine.SCOUT_SPEED;
+										
+	
+					}
+						gl.glTranslatef(enemies[x].posX, enemies[x].posY, 0f);
+						gl.glMatrixMode(GL10.GL_TEXTURE);
+						gl.glLoadIdentity();
+						gl.glTranslatef(0.50f, .25f , 0.0f);					
+					enemies[x].draw(gl, spriteSheets);
+					gl.glPopMatrix();
+					gl.glLoadIdentity();
+					
+					break;
+				case SFEngine.TYPE_WARSHIP:
+					if (enemies[x].posY < 0){
+						enemies[x].posY = (randomPos.nextFloat() * 10) + 10;
+						enemies[x].posX = randomPos.nextFloat() * 9;
+						enemies[x].isLockedOn = false;
+						enemies[x].lockOnPosX = 0;
+					}	
+					gl.glMatrixMode(GL10.GL_MODELVIEW);
+					gl.glLoadIdentity();
+					gl.glPushMatrix();
+					gl.glScalef(.10f, .10f, 1f);
+		
+					if (enemies[x].posY >= 9){
+						enemies[x].posY -= SFEngine.WARSHIP_SPEED;
+			
+					}else{
+						if (!enemies[x].isLockedOn){
+							enemies[x].lockOnPosX = randomPos.nextFloat() * 9;
+							enemies[x].isLockedOn = true;
+							enemies[x].incrementXToTarget =  (float) ((enemies[x].lockOnPosX - enemies[x].posX )/ (enemies[x].posY / (SFEngine.WARSHIP_SPEED  * 10)));
+						}
+						enemies[x].posY -= (SFEngine.WARSHIP_SPEED  * 6);
+						enemies[x].posX += enemies[x].incrementXToTarget; 
+	
+					}
+						gl.glTranslatef(enemies[x].posX, enemies[x].posY, 0f);
+						gl.glMatrixMode(GL10.GL_TEXTURE);
+						gl.glLoadIdentity();
+						gl.glTranslatef(0.75f, .25f , 0.0f);					
+					enemies[x].draw(gl,spriteSheets);
+					gl.glPopMatrix();
+					gl.glLoadIdentity();
+					
+					break;
+			
+				}
+			
+			}	
+		}
+			
 	}
 	
 	private void movePlayer1(GL10 gl){
@@ -60,7 +207,7 @@ public class SFGameRenderer implements Renderer{
 				gl.glLoadIdentity();
 				gl.glTranslatef(0.75f,0.0f, 0.0f); 
 				goodGuyBankFrames += 1;
-			player1.draw(gl);
+			player1.draw(gl,spriteSheets);
 			gl.glPopMatrix();
 			gl.glLoadIdentity();			
 			break;			
@@ -74,7 +221,7 @@ public class SFGameRenderer implements Renderer{
 			gl.glLoadIdentity();
 		    gl.glTranslatef(0.0f,0.0f, 0.0f); 
 		    goodGuyBankFrames = 0;
-		    player1.draw(gl);
+		    player1.draw(gl,spriteSheets);
 		    gl.glPopMatrix();
 		    gl.glLoadIdentity();
 			break;
@@ -87,7 +234,7 @@ public class SFGameRenderer implements Renderer{
 			gl.glMatrixMode(GL10.GL_TEXTURE);
 			gl.glLoadIdentity();
 		    gl.glTranslatef(0.0f,0.0f, 0.0f); 
-		    player1.draw(gl);
+		    player1.draw(gl,spriteSheets);
 		    gl.glPopMatrix();
 		    gl.glLoadIdentity();
 			break;
@@ -152,15 +299,19 @@ public class SFGameRenderer implements Renderer{
 	//@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		// TODO Auto-generated method stub
-	  
-		  gl.glEnable(GL10.GL_TEXTURE_2D);
-	      gl.glClearDepthf(1.0f);
-	      gl.glEnable(GL10.GL_DEPTH_TEST);
-	      gl.glDepthFunc(GL10.GL_LEQUAL);
+		initializeInterceptors();
+		initializeScouts();
+		initializeWarships();
+		textureLoader = new SFTextures(gl);
+		spriteSheets = textureLoader.loadTexture(gl, SFEngine.CHARACTER_SHEET, SFEngine.context, 1); 
+		
+		gl.glEnable(GL10.GL_TEXTURE_2D);
+		gl.glClearDepthf(1.0f);
+		gl.glEnable(GL10.GL_DEPTH_TEST);
+		gl.glDepthFunc(GL10.GL_LEQUAL);
 
-		  background.loadTexture(gl,SFEngine.BACKGROUND_LAYER_ONE, SFEngine.context);
-		  background2.loadTexture(gl,SFEngine.BACKGROUND_LAYER_TWO, SFEngine.context);
-		  player1.loadTexture(gl, SFEngine.PLAYER_SHIP, SFEngine.context);
-		  }
+		background.loadTexture(gl,SFEngine.BACKGROUND_LAYER_ONE, SFEngine.context);
+		background2.loadTexture(gl,SFEngine.BACKGROUND_LAYER_TWO, SFEngine.context);
+	}
 	
 }
