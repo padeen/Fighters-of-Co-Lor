@@ -31,16 +31,20 @@ public class SFGame extends Activity {
 
    	@Override
    	public boolean onTouchEvent(MotionEvent event) {
-   		//
-   		float x = event.getX();
-        float y = event.getY();
-        if ((x > (SFEngine.player1BankPosX-1)*width/9) && (x < (SFEngine.player1BankPosX+1)*width/9)){
+   		
+   		float x = event.getX()/(width/9);
+   		//display x coordinaat converteren naar gl coordinaat 
+        float y = (event.getY()-height)*-1/(height/9);
+        //display y coordinaat converteren naar gl coordinaat + inverse
+        
+        if ((x > SFEngine.player1BankPosX-1) && (x < SFEngine.player1BankPosX+1) &&
+        		(y > SFEngine.player1BankPosY-1) && (y < SFEngine.player1BankPosY+1)){
         	switch (event.getAction()){
         	case MotionEvent.ACTION_DOWN:
         		break;
         	case MotionEvent.ACTION_MOVE:
-        		SFEngine.player1BankPosX = x/(width/9);
-        		SFEngine.player1BankPosY = ((y-height)*-1)/(height/9);
+        		SFEngine.player1BankPosX = x;
+        		SFEngine.player1BankPosY = y;
         		SFEngine.playerFlightAction = SFEngine.PLAYER_BANK_MOVE;
         		break;
         	case MotionEvent.ACTION_UP:
@@ -49,13 +53,14 @@ public class SFGame extends Activity {
         	}        	
         }
         else{
-        	if((x > (SFEngine.player2BankPosX-1)*width/9) && (x < (SFEngine.player2BankPosX+1)*width/9)){
+        	if ((x > SFEngine.player2BankPosX-1) && (x < SFEngine.player2BankPosX+1) &&
+            		(y > SFEngine.player2BankPosY-1) && (y < SFEngine.player2BankPosY+1)){
             	switch (event.getAction()){
             	case MotionEvent.ACTION_DOWN:
             		break;
             	case MotionEvent.ACTION_MOVE:
-            		SFEngine.player2BankPosX = x/(width/9);
-            		SFEngine.player2BankPosY = ((y-height)*-1)/(height/9);
+            		SFEngine.player2BankPosX = x;
+            		SFEngine.player2BankPosY = y;
             		SFEngine.playerFlightAction = SFEngine.PLAYER_BANK_MOVE;
             		break;
             	case MotionEvent.ACTION_UP:
