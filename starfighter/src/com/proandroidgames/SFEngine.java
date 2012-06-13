@@ -8,7 +8,6 @@ import com.proandroidgames.R;
 
 public class SFEngine {
 	/*Constants that will be used in the game*/
-	public static final int WEAPONS_SHEET = R.drawable.destruction;
 	public static final int PLAYER_SHIELDS = 4;
 	public static final int SCOUT_SHIELDS = 4;
 	public static final int INTERCEPTOR_SHIELDS = 4;

@@ -56,7 +56,7 @@ public class SFWeapon
 	
 	public void draw(GL10 gl, int[] spriteSheet) 
 	{
-		gl.glBindTexture(GL10.GL_TEXTURE_2D, spriteSheet[1]);
+		gl.glBindTexture(GL10.GL_TEXTURE_2D, spriteSheet[0]);
 		gl.glFrontFace(GL10.GL_CCW);
 		gl.glEnable(GL10.GL_CULL_FACE);
 		gl.glCullFace(GL10.GL_BACK);

@@ -14,7 +14,7 @@ public class SFGameRenderer implements Renderer{
 	
 	private SFEnemy[] enemies = new SFEnemy[SFEngine.TOTAL_INTERCEPTORS + SFEngine.TOTAL_SCOUTS + SFEngine.TOTAL_WARSHIPS - 1];
 	private SFTextures textureLoader;
-	private int[] spriteSheets = new int[2];
+	private int[] spriteSheets = new int[1];
 	private SFWeapon[] playerFire = new SFWeapon[10];
 	private SFWeapon[] player2Fire = new SFWeapon[10];
 	
@@ -216,7 +216,7 @@ public class SFGameRenderer implements Renderer{
 					gl.glTranslatef(playerFire[x].posX, playerFire[x].posY, 0f);
 					gl.glMatrixMode(GL10.GL_TEXTURE);
 					gl.glLoadIdentity();
-					gl.glTranslatef(0.0f,0.0f, 0.0f);
+					gl.glTranslatef(0.50f,0.25f, 0.0f);
 					playerFire[x].draw(gl,spriteSheets);
 					gl.glPopMatrix();
 					gl.glLoadIdentity();
@@ -263,7 +263,7 @@ public class SFGameRenderer implements Renderer{
 					gl.glTranslatef(player2Fire[x].posX, player2Fire[x].posY, 0f);
 					gl.glMatrixMode(GL10.GL_TEXTURE);
 					gl.glLoadIdentity();
-					gl.glTranslatef(0.25f,0.0f, 0.0f);
+					gl.glTranslatef(0.75f,0.25f, 0.0f);
 					player2Fire[x].draw(gl,spriteSheets);
 					gl.glPopMatrix();
 					gl.glLoadIdentity();
@@ -306,7 +306,7 @@ public class SFGameRenderer implements Renderer{
 						gl.glTranslatef(enemies[x].posX, enemies[x].posY, 0f);
 						gl.glMatrixMode(GL10.GL_TEXTURE);
 						gl.glLoadIdentity();
-						gl.glTranslatef(0.25f, .25f , 0.0f);					
+						gl.glTranslatef(0.75f, 0.0f , 0.0f);					
 					enemies[x].draw(gl, spriteSheets);
 					gl.glPopMatrix();
 					gl.glLoadIdentity();
@@ -343,7 +343,7 @@ public class SFGameRenderer implements Renderer{
 						gl.glTranslatef(enemies[x].posX, enemies[x].posY, 0f);
 						gl.glMatrixMode(GL10.GL_TEXTURE);
 						gl.glLoadIdentity();
-						gl.glTranslatef(0.50f, .25f , 0.0f);					
+						gl.glTranslatef(0.0f, .25f , 0.0f);					
 					enemies[x].draw(gl, spriteSheets);
 					gl.glPopMatrix();
 					gl.glLoadIdentity();
@@ -378,7 +378,7 @@ public class SFGameRenderer implements Renderer{
 						gl.glTranslatef(enemies[x].posX, enemies[x].posY, 0f);
 						gl.glMatrixMode(GL10.GL_TEXTURE);
 						gl.glLoadIdentity();
-						gl.glTranslatef(0.75f, .25f , 0.0f);					
+						gl.glTranslatef(0.25f, .25f , 0.0f);					
 					enemies[x].draw(gl,spriteSheets);
 					gl.glPopMatrix();
 					gl.glLoadIdentity();
@@ -403,7 +403,7 @@ public class SFGameRenderer implements Renderer{
 				gl.glTranslatef(SFEngine.player1BankPosX, SFEngine.player1BankPosY, 0f);
 				gl.glMatrixMode(GL10.GL_TEXTURE);
 				gl.glLoadIdentity();
-				gl.glTranslatef(0.75f,0.0f, 0.0f); 
+				gl.glTranslatef(0.0f,0.0f, 0.0f); 
 				goodGuyBankFrames += 1;
 			player1.draw(gl,spriteSheets);
 			gl.glPopMatrix();
@@ -452,7 +452,7 @@ public class SFGameRenderer implements Renderer{
 				gl.glTranslatef(SFEngine.player2BankPosX, SFEngine.player2BankPosY, 0f);
 				gl.glMatrixMode(GL10.GL_TEXTURE);
 				gl.glLoadIdentity();
-				gl.glTranslatef(0.75f,0.0f, 0.0f); 
+				gl.glTranslatef(0.25f,0.0f, 0.0f); 
 				goodGuyBankFrames += 1;
 			player2.draw(gl,spriteSheets);
 			gl.glPopMatrix();
@@ -466,7 +466,7 @@ public class SFGameRenderer implements Renderer{
 		 	gl.glTranslatef(SFEngine.player2BankPosX, SFEngine.player2BankPosY, 0f);
 			gl.glMatrixMode(GL10.GL_TEXTURE);
 			gl.glLoadIdentity();
-		    gl.glTranslatef(0.0f,0.0f, 0.0f); 
+		    gl.glTranslatef(0.25f,0.0f, 0.0f); 
 		    goodGuyBankFrames = 0;
 		    player2.draw(gl,spriteSheets);
 		    gl.glPopMatrix();
@@ -480,7 +480,7 @@ public class SFGameRenderer implements Renderer{
 		 	gl.glTranslatef(SFEngine.player2BankPosX, SFEngine.player2BankPosY, 0f);
 			gl.glMatrixMode(GL10.GL_TEXTURE);
 			gl.glLoadIdentity();
-		    gl.glTranslatef(0.0f,0.0f, 0.0f); 
+		    gl.glTranslatef(0.25f,0.0f, 0.0f); 
 		    player2.draw(gl,spriteSheets);
 		    gl.glPopMatrix();
 		    gl.glLoadIdentity();
@@ -551,8 +551,7 @@ public class SFGameRenderer implements Renderer{
 		initializeWarships();
 		initializePlayerWeapons();
 		textureLoader = new SFTextures(gl);
-		spriteSheets = textureLoader.loadTexture(gl, SFEngine.CHARACTER_SHEET, SFEngine.context, 1); 
-		spriteSheets = textureLoader.loadTexture(gl, SFEngine.WEAPONS_SHEET, SFEngine.context, 2);
+		spriteSheets = textureLoader.loadTexture(gl, SFEngine.CHARACTER_SHEET, SFEngine.context, 1); 		
 		
 		gl.glEnable(GL10.GL_TEXTURE_2D);
 		gl.glClearDepthf(1.0f);
