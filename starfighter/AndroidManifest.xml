@@ -17,22 +17,10 @@
         <activity android:name="com.proandroidgames.SFMainMenu" android:screenOrientation="portrait"></activity>
         <service android:name="com.proandroidgames.SFMusic"></service>
         <activity android:name="com.proandroidgames.SFGame" android:screenOrientation="portrait"></activity>
+        <activity android:name="com.proandroidgames.serverActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name="com.proandroidgames.clientActivity" android:screenOrientation="portrait"></activity>
         
         <activity android:name="com.proandroidgames.Menu" android:label="@string/app_name">
-			<intent-filter>
-				<action android:name="com.proandroidgames.StarFighterActivity.CLEARSCREEN" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		
-        <activity android:name="com.proandroidgames.serverActivity" android:label="@string/app_name">
-			<intent-filter>
-				<action android:name="com.proandroidgames.StarFighterActivity.CLEARSCREEN" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		
-		<activity android:name="com.proandroidgames.clientActivity" android:label="@string/app_name">
 			<intent-filter>
 				<action android:name="com.proandroidgames.StarFighterActivity.CLEARSCREEN" />
 				<category android:name="android.intent.category.DEFAULT" />

@@ -9,11 +9,11 @@ import com.proandroidgames.R;
 public class SFEngine {
 	/*Constants that will be used in the game*/
 	public static final int WEAPONS_SHEET = R.drawable.destruction;
-	public static final int PLAYER_SHIELDS = 5;
-	public static final int SCOUT_SHIELDS = 3;
-	public static final int INTERCEPTOR_SHIELDS = 1;
-	public static final int WARSHIP_SHIELDS = 5;
-	public static final float PLAYER_BULLET_SPEED = .125f;
+	public static final int PLAYER_SHIELDS = 4;
+	public static final int SCOUT_SHIELDS = 4;
+	public static final int INTERCEPTOR_SHIELDS = 4;
+	public static final int WARSHIP_SHIELDS = 4;
+	public static final float PLAYER_BULLET_SPEED = .175f;
 	public static final int GAME_THREAD_DELAY = 4000;
 	public static final int MENU_BUTTON_ALPHA = 0;
 	public static final boolean HAPTIC_BUTTON_FEEDBACK = true;
@@ -26,7 +26,6 @@ public class SFEngine {
 	public static Thread musicThread;
 	public static Display display;
 	public static float SCROLL_BACKGROUND_1  = .002f;
-	public static float SCROLL_BACKGROUND_2  = .007f;
 	public static final int BACKGROUND_LAYER_ONE = R.drawable.backgroundstars;
 	public static final int BACKGROUND_LAYER_TWO = R.drawable.debris;
 	public static int playerFlightAction = 0;
@@ -39,12 +38,12 @@ public class SFEngine {
 	public static float player2BankPosY = 2.00f;
 	public static float player2BankPosX = 5.50f;
 	public static int CHARACTER_SHEET = R.drawable.character_sprite;
-	public static int TOTAL_INTERCEPTORS = 10;
+	public static int TOTAL_INTERCEPTORS = 15;
 	public static int TOTAL_SCOUTS = 15;
-	public static int TOTAL_WARSHIPS = 5;
-	public static float INTERCEPTOR_SPEED = SCROLL_BACKGROUND_1 * 4f;
-	public static float SCOUT_SPEED = SCROLL_BACKGROUND_1 * 6f;
-	public static float WARSHIP_SPEED = SCROLL_BACKGROUND_2 * 4f;
+	public static int TOTAL_WARSHIPS = 15;
+	public static float INTERCEPTOR_SPEED = SCROLL_BACKGROUND_1 * 2f;
+	public static float SCOUT_SPEED = SCROLL_BACKGROUND_1 * 2f;
+	public static float WARSHIP_SPEED = SCROLL_BACKGROUND_1 * 2f;
 	public static final int TYPE_INTERCEPTOR = 1;
 	public static final int TYPE_SCOUT = 2;
 	public static final int TYPE_WARSHIP = 3;

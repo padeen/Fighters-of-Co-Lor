@@ -32,9 +32,13 @@ public class SFWeapon
 			0,1,2,
 			0,2,3,
 	};
+	
+	private final int color; 
 
-	public SFWeapon() 
+	public SFWeapon(int color) 
 	{
+		this.color = color;
+		
 		ByteBuffer byteBuf = ByteBuffer.allocateDirect(vertices.length * 4);
 		byteBuf.order(ByteOrder.nativeOrder());
 		vertexBuffer = byteBuf.asFloatBuffer();

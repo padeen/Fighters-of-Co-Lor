@@ -25,7 +25,7 @@ public class StarfighterActivity extends Activity {
         		@Override
         		public void run() {
                    Intent MainMenu = new Intent(StarfighterActivity.this, SFMainMenu.class);
-                   StarfighterActivity.this.startActivity(MainMenu);
+                   StarfighterActivity.this.startActivity(MainMenu); 	
                    StarfighterActivity.this.finish();
                    overridePendingTransition(R.layout.fadein,R.layout.fadeout);
         		}

@@ -15,34 +15,40 @@ import android.graphics.BitmapFactory;
 import android.opengl.GLUtils;
 
 public class SFGoodGuy {
-
-	   private FloatBuffer vertexBuffer;
-	   private FloatBuffer textureBuffer;
-	   private ByteBuffer indexBuffer;
 	   
-	   private int[] textures = new int[1];
+	private FloatBuffer vertexBuffer;
+   private FloatBuffer textureBuffer;
+   private ByteBuffer indexBuffer;
+   
+   private int[] textures = new int[1];
 
-	   private float vertices[] = {
-	                   0.0f, 0.0f, 0.0f, 
-	                   1.0f, 0.0f, 0.0f,  
-	                   1.0f, 1.0f, 0.0f,  
-	                   0.0f, 1.0f, 0.0f,
-	                                 };
-	   
-	    private float texture[] = {          
-	                   0.0f, 0.0f,
-	                   0.25f, 0.0f,
-	                   0.25f, 0.25f,
-	                   0.0f, 0.25f, 
-	                                  };
-	        
-	    private byte indices[] = {
-	                   0,1,2, 
-	                   0,2,3, 
-	                                  };
-		public boolean isDestroyed = false;
+   private float vertices[] = {
+                   0.0f, 0.0f, 0.0f, 
+                   1.0f, 0.0f, 0.0f,  
+                   1.0f, 1.0f, 0.0f,  
+                   0.0f, 1.0f, 0.0f,
+                                 };
+   
+    private float texture[] = {          
+                   0.0f, 0.0f,
+                   0.25f, 0.0f,
+                   0.25f, 0.25f,
+                   0.0f, 0.25f, 
+                                  };
+        
+    private byte indices[] = {
+                   0,1,2, 
+                   0,2,3, 
+                                  };
+    
+    private final int playerNumber;
+    private final int color;
+    //0 = red, 1 = blue, 2 = yellow, 3 = green, 4 = purple
+	public boolean isDestroyed = false;
 
-	   public SFGoodGuy() {
+	   public SFGoodGuy(int playerNumber, int color) {
+		   this.playerNumber = playerNumber;
+		   this.color = color;
 	      ByteBuffer byteBuf = ByteBuffer.allocateDirect(vertices.length * 4);
 	      byteBuf.order(ByteOrder.nativeOrder());
 	      vertexBuffer = byteBuf.asFloatBuffer();

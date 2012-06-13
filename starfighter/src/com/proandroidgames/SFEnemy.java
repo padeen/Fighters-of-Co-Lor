@@ -8,6 +8,8 @@ import java.util.Random;
 import javax.microedition.khronos.opengles.GL10;
 
 public class SFEnemy {
+	
+	private final int color;
 
 	public float posY = 0f;
 	public float posX = 0f;
@@ -49,19 +51,20 @@ public class SFEnemy {
 	                   0,2,3, 
 	                                  };
 	    
-	    public SFEnemy(int type, int direction) {
+	    public SFEnemy(int color, int type, int direction) {
+    		this.color = color;
 			   enemyType = type;
 			   attackDirection = direction;
-			   posY = (randomPos.nextFloat() * 4) + 4;
+			   posY = 10.25f;
 			   switch(attackDirection){
 			   case SFEngine.ATTACK_LEFT:
 				   posX = 0;
 				   break;
 			   case SFEngine.ATTACK_RANDOM:
-				   posX = randomPos.nextFloat() * 3;
+				   posX = randomPos.nextFloat() * 10;
 				   break;
 			   case SFEngine.ATTACK_RIGHT:
-				   posX = 3;
+				   posX = 10;
 				   break;
 			   }
 			   posT = SFEngine.SCOUT_SPEED;

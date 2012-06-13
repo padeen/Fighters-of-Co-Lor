@@ -22,7 +22,8 @@ public class SFMainMenu extends Activity {
 			
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			startActivity(new Intent("com.proandroidgames.StarFighterActivity.serverActivity"));
+			Intent server = new Intent(getApplicationContext(),serverActivity.class);
+			SFMainMenu.this.startActivity(server);
 			
 		}
 			
@@ -33,7 +34,8 @@ public class SFMainMenu extends Activity {
 					
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				startActivity(new Intent("com.proandroidgames.StarFighterActivity.JOIN"));
+				Intent client = new Intent(getApplicationContext(),clientActivity.class);
+				SFMainMenu.this.startActivity(client);
 				
 			}
 			
