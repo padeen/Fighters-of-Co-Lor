@@ -36,6 +36,7 @@ public class SFEngine {
 	public static float player1BankPosX = 3.50f;
 	public static float player2BankPosY = 2.00f;
 	public static float player2BankPosX = 5.50f;
+	public static boolean playerMelt = false;
 	public static int CHARACTER_SHEET = R.drawable.character_sprite;
 	public static int TOTAL_INTERCEPTORS = 15;
 	public static int TOTAL_SCOUTS = 15;

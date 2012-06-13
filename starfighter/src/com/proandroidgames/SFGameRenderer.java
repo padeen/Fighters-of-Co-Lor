@@ -216,7 +216,12 @@ public class SFGameRenderer implements Renderer{
 					gl.glTranslatef(playerFire[x].posX, playerFire[x].posY, 0f);
 					gl.glMatrixMode(GL10.GL_TEXTURE);
 					gl.glLoadIdentity();
-					gl.glTranslatef(0.50f,0.25f, 0.0f);
+					if (SFEngine.playerMelt == false){
+						gl.glTranslatef(0.50f,0.25f, 0.0f);
+					}
+					else{
+						gl.glTranslatef(0.0f,0.50f, 0.0f);
+					}					
 					playerFire[x].draw(gl,spriteSheets);
 					gl.glPopMatrix();
 					gl.glLoadIdentity();
@@ -263,7 +268,12 @@ public class SFGameRenderer implements Renderer{
 					gl.glTranslatef(player2Fire[x].posX, player2Fire[x].posY, 0f);
 					gl.glMatrixMode(GL10.GL_TEXTURE);
 					gl.glLoadIdentity();
-					gl.glTranslatef(0.75f,0.25f, 0.0f);
+					if(SFEngine.playerMelt == false){
+						gl.glTranslatef(0.75f,0.25f, 0.0f);
+					}
+					else{
+						gl.glTranslatef(0.0f,0.50f, 0.0f);
+					}	
 					player2Fire[x].draw(gl,spriteSheets);
 					gl.glPopMatrix();
 					gl.glLoadIdentity();
@@ -401,6 +411,16 @@ public class SFGameRenderer implements Renderer{
 			gl.glPushMatrix();
 			gl.glScalef(.10f, .10f, 1f);			
 				gl.glTranslatef(SFEngine.player1BankPosX, SFEngine.player1BankPosY, 0f);
+				if(SFEngine.player1BankPosX > SFEngine.player2BankPosX - 1.75 &&
+						SFEngine.player1BankPosX < SFEngine.player2BankPosX + 1.75 &&
+						SFEngine.player1BankPosY > SFEngine.player2BankPosY - 1.75 &&
+						SFEngine.player1BankPosY < SFEngine.player2BankPosY + 1.75 )
+				{
+					SFEngine.playerMelt = true;
+				}
+				else{
+					SFEngine.playerMelt = false;
+				}		
 				gl.glMatrixMode(GL10.GL_TEXTURE);
 				gl.glLoadIdentity();
 				gl.glTranslatef(0.0f,0.0f, 0.0f); 
