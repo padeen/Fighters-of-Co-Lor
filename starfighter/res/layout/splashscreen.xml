@@ -4,15 +4,9 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
     <ImageView android:id="@+id/splashScreenImage" 
-    	android:src="@drawable/menu" 
+    	android:src="@drawable/splashbg" 
     	android:layout_width="match_parent" 
     	android:layout_height="match_parent">
     </ImageView>
-    <TextView 
-    	android:text="game by: Co-lor Productions graphics by: Erik van Veen" 
-    	android:id="@+id/creditsText"
-    	android:layout_gravity="center_horizontal|bottom"
-    	android:layout_height="wrap_content" 
-    	android:layout_width="wrap_content">
-    </TextView>
+    
 </FrameLayout>
