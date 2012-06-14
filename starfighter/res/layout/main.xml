@@ -11,7 +11,7 @@
      android:layout_width="300sp"
      android:layout_height="80sp"
      android:layout_gravity="center"
-     android:background="@drawable/host_knop"
+     android:background="@drawable/hostknop"
      android:onClick="host" />
      
     <Button
@@ -20,7 +20,7 @@
      android:layout_width="300sp"
      android:layout_height="80sp"
      android:layout_gravity="center"
-     android:background="@drawable/join_knop"
+     android:background="@drawable/joinknop"
      android:onClick="client"/>
      
     <Button
@@ -29,7 +29,7 @@
      android:layout_width="300sp"
      android:layout_height="80sp"
      android:layout_gravity="center"
-     android:background="@drawable/highscores_knop" />
+     android:background="@drawable/highscoresknop" />
     
     <Button
      android:id="@+id/help"
@@ -37,6 +37,6 @@
      android:layout_width="300sp"
      android:layout_height="80sp"
      android:layout_gravity="center"
-     android:background="@drawable/help_knop" />
+     android:background="@drawable/helpknop" />
     
 </LinearLayout>

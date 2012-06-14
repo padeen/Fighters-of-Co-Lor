@@ -4,7 +4,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
     <ImageView android:id="@+id/splashScreenImage" 
-    	android:src="@drawable/starfighter" 
+    	android:src="@drawable/menu" 
     	android:layout_width="match_parent" 
     	android:layout_height="match_parent">
     </ImageView>

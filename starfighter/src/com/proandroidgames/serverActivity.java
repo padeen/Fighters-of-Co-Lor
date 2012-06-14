@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OptionalDataException;
 import java.io.PrintWriter;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -17,7 +18,6 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
 import java.util.Scanner;
-import com.proandroidgames.R;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -25,19 +25,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class serverActivity extends Activity {
     /** Called when the activity is first created. */
 	
-	private ObjectOutputStream OOS;
-	private ObjectInputStream OIS;
-	
 	private ServerSocket serverSocket;
 	private Socket clientSocket;
-	private PrintWriter out;
-	private BufferedReader in;
-	private Scanner scanner;
+	private ObjectOutputStream OOS;
+	private ObjectInputStream OIS;
 	private boolean wasConnected = false;
 	
 	
@@ -71,34 +68,22 @@ public class serverActivity extends Activity {
 		@Override
 		protected Void doInBackground(Void... params) {
 			try{
-	    		clientSocket = serverSocket.accept();
+	    		 clientSocket = serverSocket.accept();
 	    	}catch(IOException e){
 	    		System.err.println("Acceptatie mislukt");
 	    		System.exit(1);
 	    	}
-			
-			
 			return null;
 		}
 		
 	     protected void onPostExecute(Void result) {
 	    	 try{
-	    		 
-	    		 out = new PrintWriter(clientSocket.getOutputStream(),true);
-	    		 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-	    		 
 	    		 OOS = new ObjectOutputStream(clientSocket.getOutputStream());
 	    		 OIS = new ObjectInputStream(clientSocket.getInputStream());
-	    		 
-	    		 
-	    		 scanner = new Scanner(clientSocket.getInputStream());
-	    		 
-	    		 new Listening().execute();
-	    		 wasConnected = true;
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-	         setContentView(R.layout.connectie);     
+	    		 new Listening().execute(); 
+			} catch (IOException e) { e.printStackTrace();}
+	    	 
+	    	 setContentView(R.layout.connectie);     
 	    }
 	}
 	
@@ -108,15 +93,21 @@ public class serverActivity extends Activity {
 			boolean connected = true;
 			while(connected){
 				try {
-					String inputline = in.readLine();
-					if(inputline != null){
-						if(inputline.equals("!BYE.@")){
+					PlayerEvent PE = (PlayerEvent) OIS.readObject();
+					if(PE != null){
+						if(!PE.gameIsRunning){
 							connected = false;
 						}else{
-							publishProgress("\nClient: "+inputline+"\n");
+							publishProgress("\n" + PE.getUsername() + "" + PE.getMessage());	
 						}
 					}
-				} catch (IOException e) {}
+				} catch (OptionalDataException e) {
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 			return null;
 		}
@@ -148,17 +139,30 @@ public class serverActivity extends Activity {
         }
         return "Geen IP-Adres gevonden.";
     }
-    
-    
+	
+	public void submit(View v){
+    	EditText input = (EditText) findViewById(R.id.chat);
+    	TextView local = (TextView) findViewById(R.id.test);
+    	String message = input.getText().toString();
+    	local.append("\n"+message);
+    	
+    	try {
+			OOS.writeObject(new PlayerEvent("server\t", message));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	input.setText(null);
+    }
+	
     public void finish() {
 		super.finish();
 		
 		try{
 			if(wasConnected){
-				out.println("!BYE.@");	
-				out.close();
-				in.close();
-		    	scanner.close();
+				OOS.writeObject(new PlayerEvent(false));
+				OOS.close();
+				OIS.close();
 		    	clientSocket.close();
 		    	serverSocket.close();
 			}
@@ -175,4 +179,5 @@ public class serverActivity extends Activity {
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+	
 }

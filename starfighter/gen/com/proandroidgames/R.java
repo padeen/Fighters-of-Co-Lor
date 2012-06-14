@@ -12,32 +12,25 @@ public final class R {
     }
     public static final class drawable {
         public static final int backgroundstars=0x7f020000;
-        public static final int bak_starfighter=0x7f020001;
-        public static final int character_sprite=0x7f020002;
-        public static final int debris=0x7f020003;
-        public static final int destruction=0x7f020004;
-        public static final int exitselector=0x7f020005;
-        public static final int help_knop=0x7f020006;
-        public static final int help_knop_focused=0x7f020007;
-        public static final int help_knop_ingedrukt=0x7f020008;
-        public static final int highscores_knop=0x7f020009;
-        public static final int highscores_knop_focused=0x7f02000a;
-        public static final int highscores_knop_ingedrukt=0x7f02000b;
-        public static final int host_knop=0x7f02000c;
-        public static final int host_knop_focused=0x7f02000d;
-        public static final int host_knop_ingedrukt=0x7f02000e;
-        public static final int ic_launcher=0x7f02000f;
-        public static final int icon=0x7f020010;
-        public static final int join_knop=0x7f020011;
-        public static final int join_knop_focused=0x7f020012;
-        public static final int join_knop_ingedrukt=0x7f020013;
-        public static final int menu=0x7f020014;
-        public static final int starfighter=0x7f020015;
-        public static final int starfighterexitbtn=0x7f020016;
-        public static final int starfighterexitbtndown=0x7f020017;
-        public static final int starfighterstartbtn=0x7f020018;
-        public static final int starfighterstartbtndown=0x7f020019;
-        public static final int startselector=0x7f02001a;
+        public static final int character_sprite=0x7f020001;
+        public static final int help_knop=0x7f020002;
+        public static final int help_knop_focused=0x7f020003;
+        public static final int help_knop_ingedrukt=0x7f020004;
+        public static final int helpknop=0x7f020005;
+        public static final int highscores_knop=0x7f020006;
+        public static final int highscores_knop_focused=0x7f020007;
+        public static final int highscores_knop_ingedrukt=0x7f020008;
+        public static final int highscoresknop=0x7f020009;
+        public static final int host_knop=0x7f02000a;
+        public static final int host_knop_focused=0x7f02000b;
+        public static final int host_knop_ingedrukt=0x7f02000c;
+        public static final int hostknop=0x7f02000d;
+        public static final int ic_launcher=0x7f02000e;
+        public static final int join_knop=0x7f02000f;
+        public static final int join_knop_focused=0x7f020010;
+        public static final int join_knop_ingedrukt=0x7f020011;
+        public static final int joinknop=0x7f020012;
+        public static final int menu=0x7f020013;
     }
     public static final class id {
         public static final int button1=0x7f060003;
