@@ -22,6 +22,7 @@ import java.util.Scanner;
 import com.project56.R;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,8 +36,6 @@ public class serverActivity extends Activity {
 	
 	private ServerSocket serverSocket;
 	private Socket clientSocket;
-	private ObjectOutputStream OOS;
-	private ObjectInputStream OIS;
 	private boolean wasConnected = false;
 	
 	
@@ -80,52 +79,16 @@ public class serverActivity extends Activity {
 		
 	     protected void onPostExecute(Void result) {
 	    	 try{
-	    		 OOS = new ObjectOutputStream(clientSocket.getOutputStream());
-	    		 OIS = new ObjectInputStream(clientSocket.getInputStream());
-	    		 new Listening().execute(); 
-			} catch (IOException e) { e.printStackTrace();}
-	    	 
-	    	 setContentView(R.layout.connectie);     
+	    		 Connector.OOS = new ObjectOutputStream(clientSocket.getOutputStream());
+	    		 Connector.OIS = new ObjectInputStream(clientSocket.getInputStream());
+	    		 Connector.playerSide = Connector.SERVER;
+	    		 Intent game = new Intent(getApplicationContext(),SFGame.class);
+	    		 serverActivity.this.startActivity(game);
+	    		 //new Listening().execute(); 
+			} catch (IOException e) { e.printStackTrace();}   
 	    }
 	}
 	
-	private class Listening extends AsyncTask<Void, String, Void>{
-		
-		protected Void doInBackground(Void... params) {
-			boolean connected = true;
-			while(connected){
-				try {
-					PlayerEvent PE = (PlayerEvent) OIS.readObject();
-					if(PE != null){
-						if(!PE.gameIsRunning){
-							connected = false;
-						}else{
-							publishProgress("\n" + PE.getUsername() + "" + PE.getMessage());	
-						}
-					}
-				} catch (OptionalDataException e) {
-					e.printStackTrace();
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			return null;
-		}
-		
-		@Override
-		protected void onProgressUpdate(String... values) {
-			super.onProgressUpdate(values);
-			TextView test = (TextView) findViewById(R.id.test);
-			test.append(values[0]);
-		}
-
-		protected void onPostExecute(Void result) {
-			finish();
-	    }
-	}
-
     public String getLocalIpAddress() {
         try {
             for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
@@ -141,30 +104,15 @@ public class serverActivity extends Activity {
         }
         return "Geen IP-Adres gevonden.";
     }
-	
-	public void submit(View v){
-    	EditText input = (EditText) findViewById(R.id.chat);
-    	TextView local = (TextView) findViewById(R.id.test);
-    	String message = input.getText().toString();
-    	local.append("\n"+message);
-    	
-    	try {
-			OOS.writeObject(new PlayerEvent("server\t", message));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	input.setText(null);
-    }
-	
+    
     public void finish() {
 		super.finish();
 		
 		try{
 			if(wasConnected){
-				OOS.writeObject(new PlayerEvent(false));
-				OOS.close();
-				OIS.close();
+				//Connector.OOS.writeObject(new PlayerEvent(false));
+				Connector.OOS.close();
+				Connector.OIS.close();
 		    	clientSocket.close();
 		    	serverSocket.close();
 			}

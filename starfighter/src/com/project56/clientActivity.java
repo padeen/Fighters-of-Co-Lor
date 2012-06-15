@@ -19,6 +19,7 @@ import java.util.Enumeration;
 import com.project56.R;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,8 +34,7 @@ public class clientActivity extends Activity {
     /** Called when the activity is first created. */
 	
 	
-	private ObjectOutputStream OOS;
-	private ObjectInputStream OIS;
+
 	private Socket socket;
 	private boolean wasConnected =false;
 	private String name = "hans";
@@ -50,53 +50,17 @@ public class clientActivity extends Activity {
     	EditText editText = (EditText) findViewById(R.id.serverIP);
     	return editText.getText().toString();
     }
-    
-    private class Listening extends AsyncTask<Void, String, Void>{
-		
-		protected Void doInBackground(Void... params) {
-			boolean connected = true;
-			while(connected){
-				try {
-					PlayerEvent PE = (PlayerEvent) OIS.readObject();
-					if(PE != null){
-						if(!PE.gameIsRunning){
-							connected = false;
-						}else{
-							publishProgress("\n" + PE.getUsername() + "" + PE.getMessage());	
-						}
-					}
-				} catch (OptionalDataException e) {
-					e.printStackTrace();
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			return null;
-		}
-		
-		@Override
-		protected void onProgressUpdate(String... values) {
-			super.onProgressUpdate(values);
-			TextView test = (TextView) findViewById(R.id.test);
-			test.append(values[0]);
-		}
-
-		protected void onPostExecute(Void result) {
-			finish();
-	    }
-    }
-    
-    
 
     public void connectToHost(View v){
     	try{
     		socket = new Socket("10.0.2.2", 5000);
     		wasConnected = true;
-    		OOS = new ObjectOutputStream(socket.getOutputStream());
-   		 	OIS = new ObjectInputStream(socket.getInputStream());
-   		 	new Listening().execute();
+    		Connector.OOS = new ObjectOutputStream(socket.getOutputStream());
+   		 	Connector.OIS = new ObjectInputStream(socket.getInputStream());
+   		 	Connector.playerSide = Connector.CLIENT;
+   		 	Intent game = new Intent(getApplicationContext(),SFGame.class);
+			clientActivity.this.startActivity(game);
+   		 	//new Listening().execute();
     	}catch(UnknownHostException e){
     		System.err.println("Kan geen verbinding maken met dit IP adres.");
     		System.exit(1);
@@ -104,35 +68,15 @@ public class clientActivity extends Activity {
     		System.err.println("Geen I/O");
     		System.exit(1);
     	}
-    	
-    	setContentView(R.layout.connectie);
     }
-    
-    
-    
-    
-    public void submit(View v){
-    	EditText input = (EditText) findViewById(R.id.chat);
-    	TextView local = (TextView) findViewById(R.id.test);
-    	String message = input.getText().toString();
-    	local.append("\n"+message);
-    	
-    	try {
-			OOS.writeObject(new PlayerEvent(name, message));
-		} catch (IOException e) { e.printStackTrace();}
-    	input.setText(null);
-    	
-
-    }
-    
     
 	public void finish() {
 		super.finish();
 		try{
 			if(wasConnected){
-				OOS.writeObject(new PlayerEvent(false));
-				OOS.close();
-				OIS.close();
+				//Connector.OOS.writeObject(new PlayerEvent(false));
+				Connector.OOS.close();
+				Connector.OIS.close();
 				socket.close();
 			}
 		}catch (IOException e) {
